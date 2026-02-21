@@ -12,8 +12,8 @@ class CategoriasSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Categoria::created(['nombre' => 'Autos']);
-        \App\Models\Categoria::created(['nombre' => 'Motos']);
-        \App\Models\Categoria::created(['nombre' => 'Camiones']);
+        \App\Models\Categoria::create(['nombre' => 'Autos']);
+        \App\Models\Categoria::create(['nombre' => 'Motos']);
+        \App\Models\Categoria::create(['nombre' => 'Camiones']);
     }
 }

@@ -12,8 +12,8 @@ class MarcasSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Marca::created(['nombre' => 'Nissan']);
-        \App\Models\Marca::created(['nombre' => 'Toyota']);
-        \App\Models\Marca::created(['nombre' => 'Volkswagen']);
+        \App\Models\Marca::create(['nombre' => 'Nissan']);
+        \App\Models\Marca::create(['nombre' => 'Toyota']);
+        \App\Models\Marca::create(['nombre' => 'Volkswagen']);
     }
 }

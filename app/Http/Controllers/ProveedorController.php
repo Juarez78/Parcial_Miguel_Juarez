@@ -33,21 +33,23 @@ class ProveedorController extends Controller
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|string|max:255|unique:proveedores|min:3',
             'telefono' => 'nullable|string|max:255',
-            'direccion' => 'required|string|max:255',
+            'estado' => 'required|boolean',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
-                'errors' => $validator->errors()
-            ], 422);
+                'errors' => $validator->errors(),
+                'mensaje' => 'Error al crear el proveedor'
 
+            ], 422);
+        }
             $proveedor = Proveedor::create($request->all());
 
             return response()->json([
                 'mensaje' => 'Proveedor creado exitosamente',
                 'data' => $proveedor
             ], 201);
-        }
+        
     }
 
     /**
@@ -74,21 +76,21 @@ class ProveedorController extends Controller
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|string|max:255|unique:proveedores,nombre,' . $proveedor->id,
             'telefono' => 'nullable|string|max:255',
-            'direccion' => 'required|string|max:255',
+            'estado' => 'required|boolean',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'errors' => $validator->errors()
             ], 422);
-
+        }
             $proveedor->update($request->all());
 
             return response()->json([
                 'mensaje' => 'Proveedor actualizado exitosamente',
                 'data' => $proveedor
             ], 200);
-        }
+        
     }
 
     /**

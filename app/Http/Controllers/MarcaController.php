@@ -16,7 +16,7 @@ class MarcaController extends Controller
     public function index()
     {
         $marcas = Marca::all();
-        return response()->json($marcas. 200);
+        return response()->json($marcas, 200);
     }
 
     /**
@@ -41,6 +41,7 @@ class MarcaController extends Controller
             return response()->json([
                 'errors' => $validator->errors()
             ], 422);
+        }
 
             $marca = Marca::create($request->all());
 
@@ -48,7 +49,7 @@ class MarcaController extends Controller
                 'mensaje' => 'Marca creada exitosamente',
                 'data' => $marca
             ], 201);
-        }
+    
     }
 
     /**
@@ -97,7 +98,7 @@ class MarcaController extends Controller
     public function destroy(Marca $marca)
     {
         $marca->delete();
-        
+
         return response()->json([
             'mensaje' => 'Marca eliminada exitosamente',
             'data' => $marca

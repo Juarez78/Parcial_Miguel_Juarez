@@ -19,7 +19,7 @@ return new class extends Migration
 
             $table->foreignId('categoria_id')->constrained('categorias');
             $table->foreignId('marca_id')->constrained('marcas');
-            $table->foreignId('proveedor_id')->constrained('proveedors');
+            $table->foreignId('proveedor_id')->constrained('proveedores');
         
             $table->timestamps();
         });
