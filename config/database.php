@@ -82,18 +82,18 @@ return [
             ]) : [],
         ],
 
-        'pgsql' => [
-            'driver' => 'pgsql',
-            'host' => env('DB_CONNECTION', '127.0.0.1'),
-            'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'your_postgres_db'),
-            'username' => env('DB_USERNAME', 'your_pg_user'),
-            'password' => env('DB_PASSWORD', 'your_pg_pass'),
-            'charset' => 'utf8',
-            'prefix' => '',
-            'schema' => 'public',
-            'sslmode' => 'prefer',
-        ],
+            'pgsql' => [
+                'driver' => 'pgsql',
+                'host' => env('DB_HOST', '127.0.0.1'),
+                'port' => env('DB_PORT', '5432'),
+                'database' => env('DB_DATABASE', 'your_postgres_db'),
+                'username' => env('DB_USERNAME', 'your_pg_user'),
+                'password' => env('DB_PASSWORD', 'your_pg_pass'),
+                'charset' => 'utf8',
+                'prefix' => '',
+                'schema' => 'public',
+                'sslmode' => 'prefer',
+            ],
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',
