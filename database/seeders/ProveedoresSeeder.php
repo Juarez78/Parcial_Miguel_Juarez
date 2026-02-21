@@ -12,6 +12,8 @@ class ProveedoresSeeder extends Seeder
      */
     public function run(): void
     {
-       
+       \App\Models\Proveedor::created(['nombre' => 'Proveedor 1']);
+       \App\Models\Proveedor::created(['nombre' => 'Proveedor 2']);
+       \App\Models\Proveedor::created(['nombre' => 'Proveedor 3']);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Marca;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -19,6 +20,9 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
+            MarcasSeeder::class,
+            CategoriasSeeder::class,
+            ProveedoresSeeder::class
             
         ]);
     }
