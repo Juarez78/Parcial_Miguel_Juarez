@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Proveedor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProveedorController extends Controller
 {
@@ -12,7 +13,8 @@ class ProveedorController extends Controller
      */
     public function index()
     {
-        //
+        $proveedores = Proveedor::all();
+        return response()->json($proveedores, 200);
     }
 
     /**
@@ -28,7 +30,24 @@ class ProveedorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'required|string|max:255|unique:proveedores|min:3',
+            'telefono' => 'nullable|string|max:255',
+            'direccion' => 'required|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors()
+            ], 422);
+
+            $proveedor = Proveedor::create($request->all());
+
+            return response()->json([
+                'mensaje' => 'Proveedor creado exitosamente',
+                'data' => $proveedor
+            ], 201);
+        }
     }
 
     /**
@@ -36,7 +55,7 @@ class ProveedorController extends Controller
      */
     public function show(Proveedor $proveedor)
     {
-        //
+        return response()->json($proveedor, 200);
     }
 
     /**
@@ -52,7 +71,24 @@ class ProveedorController extends Controller
      */
     public function update(Request $request, Proveedor $proveedor)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'required|string|max:255|unique:proveedores,nombre,' . $proveedor->id,
+            'telefono' => 'nullable|string|max:255',
+            'direccion' => 'required|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors()
+            ], 422);
+
+            $proveedor->update($request->all());
+
+            return response()->json([
+                'mensaje' => 'Proveedor actualizado exitosamente',
+                'data' => $proveedor
+            ], 200);
+        }
     }
 
     /**
@@ -60,6 +96,11 @@ class ProveedorController extends Controller
      */
     public function destroy(Proveedor $proveedor)
     {
-        //
+        $proveedor->delete();
+        
+        return response()->json([
+            'mensaje' => 'Proveedor eliminado exitosamente',
+            'data' => $proveedor
+        ], 200);
     }
 }

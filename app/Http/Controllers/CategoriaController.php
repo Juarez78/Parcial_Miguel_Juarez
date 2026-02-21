@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Categoria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CategoriaController extends Controller
 {
@@ -12,7 +13,8 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        //
+        $categorias = Categoria::all();
+        return response()->json($categorias, 200);
     }
 
     /**
@@ -28,7 +30,23 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'required|string|max:255|unique:categorias',
+            'estado' => 'required|boolean',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $categoria = Categoria::create($request->all());
+
+        return response()->json([
+            'mensaje' => 'Categoria creada exitosamente',
+            'data' => $categoria
+        ], 201);
     }
 
     /**
@@ -36,7 +54,7 @@ class CategoriaController extends Controller
      */
     public function show(Categoria $categoria)
     {
-        //
+        return response()->json($categoria, 200);
     }
 
     /**
@@ -52,7 +70,23 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, Categoria $categoria)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'required|string|max:255|unique:categorias,nombre,' . $categoria->id,
+            'estado' => 'required|boolean',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $categoria->update($request->all());
+
+        return response()->json([
+            'mensaje' => 'Categoria actualizada exitosamente',
+            'data' => $categoria
+        ], 200);
     }
 
     /**
@@ -60,6 +94,11 @@ class CategoriaController extends Controller
      */
     public function destroy(Categoria $categoria)
     {
-        //
+        $categoria->delete();
+        
+        return response()->json([
+            'mensaje' => 'Categoria eliminada exitosamente',
+            'data' => $categoria
+        ], 200);
     }
 }
