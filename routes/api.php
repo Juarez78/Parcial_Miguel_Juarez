@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\ProductoController;
 
 
 Route::prefix('auth')->group(function () {
@@ -33,8 +34,14 @@ Route::middleware('auth:api')->prefix('rol-permisos')->group(function () {
     Route::delete('/eliminar-rol/{id}',[RolPermissionController::class,'eliminarRol'])->middleware('rolePermission:Super Admin');
     Route::delete('/eliminar-permiso',[RolPermissionController::class,'eliminarPermisos'])->middleware('rolePermission:Super Admin');
 });
-Route::middleware(['auth:api', 'rolePermission:Super Admin,Admin'])->group(function () {
+
     Route::apiResource('marcas', MarcaController::class);
     Route::apiResource('categorias', CategoriaController::class);
     Route::apiResource('proveedores', ProveedorController::class);
-});
+    Route::apiResource('productos', ProductoController::class);
+/*Route::middleware(['auth:api', 'rolePermission:Super Admin,Admin'])->group(function () {
+    Route::apiResource('marcas', MarcaController::class);
+    Route::apiResource('categorias', CategoriaController::class);
+    Route::apiResource('proveedores', ProveedorController::class);
+    Route::apiResource('productos', ProductoController::class);
+});*/
